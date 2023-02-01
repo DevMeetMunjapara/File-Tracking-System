@@ -6,6 +6,7 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:fts/customwidget/fileStatusIcon.dart';
 import 'package:fts/customwidget/fullbutton.dart';
+import 'package:fts/splash/splashServices.dart';
 
 class FileStatus extends StatelessWidget {
   var trckingId;
@@ -17,7 +18,7 @@ class FileStatus extends StatelessWidget {
 
   var fileData = FirebaseFirestore.instance
       .collection("allUser")
-      .doc("9409497905")
+      .doc(loginMobileNumber)
       .collection("allFile");
 
   Widget getFileData() {

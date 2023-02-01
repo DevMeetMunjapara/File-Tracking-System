@@ -6,6 +6,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:fts/customwidget/fileStatusIcon.dart';
 import 'package:fts/customwidget/fullbutton.dart';
 import 'package:fts/page/fileStatus.dart';
+import 'package:fts/splash/splashServices.dart';
 
 class TotalFile extends StatelessWidget {
   TotalFile({
@@ -14,7 +15,7 @@ class TotalFile extends StatelessWidget {
 
   final db = FirebaseFirestore.instance
       .collection("allUser")
-      .doc("9409497905")
+      .doc(loginMobileNumber)
       .collection("allFile")
       .snapshots();
 

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:fts/customwidget/drawer.dart';
 import 'package:fts/customwidget/fullbutton.dart';
 import 'package:fts/main.dart';
 import 'package:fts/page/fileStatus.dart';
@@ -40,53 +41,7 @@ class Home extends StatelessWidget {
           IconButton(onPressed: () {}, icon: Icon(Icons.notifications))
         ],
       ),
-      drawer: Drawer(
-        child: Padding(
-          padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
-          child: Column(
-            children: [
-              Container(
-                  padding: EdgeInsets.only(top: 40, bottom: 15),
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                    color: PrimaryColor,
-                  ),
-                  child: Column(
-                    children: const [
-                      CircleAvatar(
-                        backgroundColor: Colors.white,
-                        radius: 49,
-                        child: CircleAvatar(
-                          radius: 45,
-                          backgroundColor: Colors.green,
-                          backgroundImage: AssetImage("img/home/man.png"),
-                        ),
-                      ),
-                      SizedBox(
-                        height: 7,
-                      ),
-                      Text(
-                        "+91 9409497905",
-                        style: TextStyle(color: Colors.white, fontSize: 18),
-                      ),
-                    ],
-                  )),
-              const SizedBox(
-                height: 10,
-              ),
-              InkWell(
-                child: Container(
-                    child: ListTile(
-                  leading: Icon(
-                    Icons.info,
-                  ),
-                  title: Text("About US"),
-                )),
-              )
-            ],
-          ),
-        ),
-      ),
+      drawer: Drawer(child: MyDrawer()),
       body: Padding(
         padding: EdgeInsets.all(20),
         child: Column(
@@ -127,7 +82,7 @@ class Home extends StatelessWidget {
                           },
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 20,
                       ),
                       FullButton(
@@ -138,7 +93,7 @@ class Home extends StatelessWidget {
                                 MaterialPageRoute(
                                     builder: (context) =>
                                         FileStatus(trckingId: trakingId.text)));
-                          })
+                          }),
                     ],
                   ),
                 )),
