@@ -5,6 +5,8 @@ import 'package:fts/customwidget/drawer.dart';
 import 'package:fts/customwidget/fullbutton.dart';
 import 'package:fts/main.dart';
 import 'package:fts/page/fileStatus.dart';
+import 'package:fts/page/notification.dart';
+import 'package:fts/page/totalFile.dart';
 import 'package:fts/splash/splashServices.dart';
 
 Color PrimaryColor = Color.fromARGB(255, 84, 22, 208);
@@ -38,7 +40,12 @@ class Home extends StatelessWidget {
                   icon: Icon(Icons.person));
             })),
         actions: [
-          IconButton(onPressed: () {}, icon: Icon(Icons.notifications))
+          IconButton(
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => MyNotification()));
+              },
+              icon: Icon(Icons.notifications))
         ],
       ),
       drawer: Drawer(child: MyDrawer()),
@@ -46,6 +53,44 @@ class Home extends StatelessWidget {
         padding: EdgeInsets.all(20),
         child: Column(
           children: [
+            InkWell(
+              onTap: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => TotalFile()));
+              },
+              child: Container(
+                  padding: EdgeInsets.all(15),
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                      color: Color.fromARGB(255, 253, 255, 127),
+                      border: Border.all(color: Colors.amber),
+                      borderRadius: BorderRadius.circular(7)),
+                  child: Row(
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          Text(
+                            "All File",
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontWeight: FontWeight.w500,
+                                fontSize: 16),
+                          ),
+                        ],
+                      ),
+                      Expanded(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [Icon(Icons.arrow_forward)],
+                        ),
+                      ),
+                    ],
+                  )),
+            ),
+            SizedBox(
+              height: 50,
+            ),
             Card(
                 color: Colors.white,
                 shape: RoundedRectangleBorder(

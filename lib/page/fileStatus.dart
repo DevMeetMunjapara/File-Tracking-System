@@ -37,13 +37,25 @@ class FileStatus extends StatelessWidget {
           );
         }
         if (snapshot.hasData && !snapshot.data!.exists) {
-          return const Padding(
-            padding: EdgeInsets.only(top: 40),
+          return Padding(
+            padding: EdgeInsets.only(top: 50),
             child: Center(
-                child: Text(
-              "File Not Found",
-              textScaleFactor: 1.5,
-              style: TextStyle(color: Colors.red),
+                child: Column(
+              children: const [
+                Image(
+                  image: AssetImage("img/home/notFound.png"),
+                  height: 90,
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                Text(
+                  "File Not Found",
+                  textScaleFactor: 1.7,
+                  style:
+                      TextStyle(color: Colors.red, fontWeight: FontWeight.w500),
+                )
+              ],
             )),
           );
         }
