@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fts/customwidget/fullbutton.dart';
+import 'package:fts/home.dart';
 import 'package:fts/login/phoneverification.dart';
 import 'package:pinput/pinput.dart';
 
@@ -114,8 +115,10 @@ class _otpscreenState extends State<otpscreen> {
 
                     // Sign the user in (or link) with the credential
                     await auth.signInWithCredential(credential);
-                    Navigator.pushNamedAndRemoveUntil(
-                        context, "home", (route) => false);
+                    Navigator.pushAndRemoveUntil(
+                        context,
+                        MaterialPageRoute(builder: (context) => Home()),
+                        (route) => false);
                   } catch (e) {
                     print("Wrong OTP");
                   }

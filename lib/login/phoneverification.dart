@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fts/customwidget/fullbutton.dart';
+import 'package:fts/login/otpscreen.dart';
 
 class phoneverification extends StatefulWidget {
   const phoneverification({super.key});
@@ -111,7 +112,8 @@ class _phoneverificationState extends State<phoneverification> {
                     verificationFailed: (FirebaseAuthException e) {},
                     codeSent: (String verificationId, int? resendToken) {
                       phoneverification.verify = verificationId;
-                      Navigator.pushNamed(context, 'verify');
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => otpscreen()));
                     },
                     codeAutoRetrievalTimeout: (String verificationId) {},
                   );
