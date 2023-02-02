@@ -4,8 +4,11 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:fts/customwidget/drawer.dart';
 import 'package:fts/customwidget/fullbutton.dart';
 import 'package:fts/main.dart';
+import 'package:fts/page/completeFile.dart';
 import 'package:fts/page/fileStatus.dart';
 import 'package:fts/page/notification.dart';
+import 'package:fts/page/pendingFile.dart';
+import 'package:fts/page/rejectFile.dart';
 import 'package:fts/page/totalFile.dart';
 import 'package:fts/splash/splashServices.dart';
 
@@ -58,35 +61,147 @@ class Home extends StatelessWidget {
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => TotalFile()));
               },
-              child: Container(
-                  padding: EdgeInsets.all(15),
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                      color: Color.fromARGB(255, 253, 255, 127),
-                      border: Border.all(color: Colors.amber),
-                      borderRadius: BorderRadius.circular(7)),
-                  child: Row(
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  InkWell(
+                    onTap: () {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => TotalFile()));
+                    },
+                    child: Container(
+                      decoration: BoxDecoration(
+                          color: Color.fromARGB(255, 207, 166, 255),
+                          borderRadius: BorderRadius.circular(7),
+                          border: Border.all(
+                              color: Color.fromARGB(255, 110, 12, 223))),
+                      padding: EdgeInsets.all(5),
+                      height: 80,
+                      width: 75,
+                      child: Column(
                         children: [
-                          Text(
-                            "All File",
-                            style: TextStyle(
-                                color: Colors.black,
-                                fontWeight: FontWeight.w500,
-                                fontSize: 16),
+                          Image(
+                            image: AssetImage("img/home/allFile.png"),
+                            height: 25,
                           ),
+                          SizedBox(
+                            height: 5,
+                          ),
+                          Text("Total \n File")
                         ],
                       ),
-                      Expanded(
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [Icon(Icons.arrow_forward)],
-                        ),
+                    ),
+                  ),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  InkWell(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => CompleteFile()));
+                    },
+                    child: Container(
+                      decoration: BoxDecoration(
+                          color: Color.fromARGB(255, 134, 249, 182),
+                          borderRadius: BorderRadius.circular(7),
+                          border: Border.all(
+                              color: Color.fromARGB(255, 2, 99, 54))),
+                      padding: EdgeInsets.all(5),
+                      height: 80,
+                      width: 75,
+                      child: Column(
+                        children: [
+                          Image(
+                            image: AssetImage("img/home/complete.png"),
+                            height: 25,
+                          ),
+                          SizedBox(
+                            height: 5,
+                          ),
+                          Text(
+                            "Complete \n File",
+                            textAlign: TextAlign.center,
+                          )
+                        ],
                       ),
-                    ],
-                  )),
+                    ),
+                  ),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  InkWell(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => PendingFile()));
+                    },
+                    child: Container(
+                      decoration: BoxDecoration(
+                          color: Color.fromARGB(255, 245, 255, 166),
+                          borderRadius: BorderRadius.circular(7),
+                          border: Border.all(
+                              color: Color.fromARGB(255, 110, 96, 4))),
+                      padding: EdgeInsets.all(5),
+                      height: 80,
+                      width: 75,
+                      child: Column(
+                        children: [
+                          Image(
+                            image: AssetImage("img/home/pending.png"),
+                            height: 25,
+                          ),
+                          SizedBox(
+                            height: 5,
+                          ),
+                          Text(
+                            "Pending \n File",
+                            textAlign: TextAlign.center,
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  InkWell(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => RejectFile()));
+                    },
+                    child: Container(
+                      decoration: BoxDecoration(
+                          color: Color.fromARGB(255, 207, 166, 255),
+                          borderRadius: BorderRadius.circular(7),
+                          border: Border.all(
+                              color: Color.fromARGB(255, 110, 12, 223))),
+                      padding: EdgeInsets.all(5),
+                      height: 80,
+                      width: 75,
+                      child: Column(
+                        children: [
+                          Image(
+                            image: AssetImage("img/home/reject.png"),
+                            height: 25,
+                          ),
+                          SizedBox(
+                            height: 5,
+                          ),
+                          Text(
+                            "Reject \n File",
+                            textAlign: TextAlign.center,
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
             SizedBox(
               height: 50,

@@ -14,7 +14,7 @@ class FileStatusIcon extends StatelessWidget {
         size: iconSize,
         color: Colors.red,
       );
-    } else if (status == "pandding") {
+    } else if (status == "pending") {
       return Icon(
         Icons.work_history,
         size: iconSize,
