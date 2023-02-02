@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -14,11 +15,67 @@ import 'package:fts/splash/splashServices.dart';
 
 Color PrimaryColor = Color.fromARGB(255, 84, 22, 208);
 
-class Home extends StatelessWidget {
+class Home extends StatefulWidget {
   Home({super.key});
+
+  @override
+  State<Home> createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
+  //var
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+
   GlobalKey<FormState> TrackingFrom = GlobalKey<FormState>();
+
   TextEditingController trakingId = TextEditingController();
+
+  int myIndex = 0;
+  List<Widget> list = [
+    Home(),
+    RejectFile(),
+  ];
+  int totalFile = 0;
+  int completeFileCount = 0;
+  void getFileCount() {
+    final approveFileCount = FirebaseFirestore.instance
+        .collection("allUser")
+        .doc(loginMobileNumber)
+        .collection("allFile")
+        .snapshots();
+
+    StreamBuilder(
+      stream: approveFileCount,
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {}
+        return ListView.builder(
+            itemCount: snapshot.data!.docs.length,
+            itemBuilder: (contexti, index) {
+              print(snapshot.data!.docs.length);
+              if (snapshot.data!.docs[index]["fileStatus"] == "reject") {
+                print(snapshot.data!.docs[index]["fileStatus"].toString());
+              }
+            });
+      },
+    );
+
+    final countDocs = FirebaseFirestore.instance
+        .collection("allUser")
+        .doc(loginMobileNumber)
+        .collection("allFile")
+        .get()
+        .then((value) => {
+              totalFile = value.size,
+              print(totalFile),
+            });
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getFileCount();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -52,22 +109,61 @@ class Home extends StatelessWidget {
         ],
       ),
       drawer: Drawer(child: MyDrawer()),
+      bottomNavigationBar: Padding(
+        padding: EdgeInsets.fromLTRB(20, 0, 20, 40),
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(15),
+          child: BottomNavigationBar(
+              backgroundColor: PrimaryColor,
+              selectedLabelStyle: TextStyle(fontWeight: FontWeight.w500),
+              selectedItemColor: Colors.white,
+              currentIndex: myIndex,
+              unselectedItemColor: Color.fromARGB(255, 192, 191, 191),
+              onTap: (index) {
+                setState(() {
+                  myIndex = index;
+                });
+              },
+              items: const [
+                BottomNavigationBarItem(
+                    label: "Home",
+                    icon: Icon(
+                      Icons.home,
+                    )),
+                BottomNavigationBarItem(
+                    label: "Total File",
+                    icon: Icon(
+                      Icons.file_copy,
+                    )),
+                BottomNavigationBarItem(
+                    label: "Profile", icon: Icon(Icons.person))
+              ]),
+        ),
+      ),
       body: Padding(
         padding: EdgeInsets.all(20),
         child: Column(
           children: [
             InkWell(
               onTap: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => TotalFile()));
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => TotalFile(
+                              allFileCount: totalFile,
+                            )));
               },
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   InkWell(
                     onTap: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => TotalFile()));
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => TotalFile(
+                                    allFileCount: totalFile,
+                                  )));
                     },
                     child: Container(
                       decoration: BoxDecoration(
@@ -79,7 +175,7 @@ class Home extends StatelessWidget {
                       height: 80,
                       width: 75,
                       child: Column(
-                        children: [
+                        children: const [
                           Image(
                             image: AssetImage("img/home/allFile.png"),
                             height: 25,
@@ -112,7 +208,7 @@ class Home extends StatelessWidget {
                       height: 80,
                       width: 75,
                       child: Column(
-                        children: [
+                        children: const [
                           Image(
                             image: AssetImage("img/home/complete.png"),
                             height: 25,
@@ -128,7 +224,7 @@ class Home extends StatelessWidget {
                       ),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 10,
                   ),
                   InkWell(
@@ -148,7 +244,7 @@ class Home extends StatelessWidget {
                       height: 80,
                       width: 75,
                       child: Column(
-                        children: [
+                        children: const [
                           Image(
                             image: AssetImage("img/home/pending.png"),
                             height: 25,
@@ -164,7 +260,7 @@ class Home extends StatelessWidget {
                       ),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 10,
                   ),
                   InkWell(
@@ -184,7 +280,7 @@ class Home extends StatelessWidget {
                       height: 80,
                       width: 75,
                       child: Column(
-                        children: [
+                        children: const [
                           Image(
                             image: AssetImage("img/home/reject.png"),
                             height: 25,
@@ -203,7 +299,7 @@ class Home extends StatelessWidget {
                 ],
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 50,
             ),
             Card(

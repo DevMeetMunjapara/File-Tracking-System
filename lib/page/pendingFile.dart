@@ -24,7 +24,7 @@ class _PendingFileState extends State<PendingFile> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text("Pending File"),
+          title: Text("Process File"),
           backgroundColor: PrimaryColor,
         ),
         body: Padding(
@@ -125,7 +125,7 @@ class _PendingFileState extends State<PendingFile> {
                           itemBuilder: (context, index) {
                             if (snapshot.data!.docs[index]["fileStatus"]
                                     .toString() ==
-                                "pending") {
+                                "process") {
                               print(snapshot.data!.docs[index].reference.id
                                   .toString());
                               return Padding(
