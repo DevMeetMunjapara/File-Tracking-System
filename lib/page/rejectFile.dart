@@ -21,11 +21,14 @@ class _RejectFileState extends State<RejectFile> {
       .doc(loginMobileNumber)
       .collection("allFile")
       .snapshots();
+
+  int toalFileComplete = 1;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text("Complete File"),
+          title: Text("Reject File"),
           backgroundColor: PrimaryColor,
         ),
         body: Padding(
@@ -39,7 +42,7 @@ class _RejectFileState extends State<RejectFile> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Row(
-                          children: [
+                          children: const [
                             Text(
                               "File Reject ",
                               style: TextStyle(fontWeight: FontWeight.w500),
@@ -50,18 +53,18 @@ class _RejectFileState extends State<RejectFile> {
                             ),
                           ],
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 5,
                         ),
-                        Text(
+                        const Text(
                           "|",
                           style: TextStyle(fontSize: 30),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 5,
                         ),
                         Row(
-                          children: [
+                          children: const [
                             Text(
                               "In Procces ",
                               style: TextStyle(fontWeight: FontWeight.w500),
@@ -72,18 +75,18 @@ class _RejectFileState extends State<RejectFile> {
                             ),
                           ],
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 5,
                         ),
-                        Text(
+                        const Text(
                           "|",
                           style: TextStyle(fontSize: 30),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 5,
                         ),
                         Row(
-                          children: [
+                          children: const [
                             Text(
                               "File Approve ",
                               style: TextStyle(fontWeight: FontWeight.w500),
@@ -97,7 +100,7 @@ class _RejectFileState extends State<RejectFile> {
                       ],
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   Expanded(
@@ -127,6 +130,7 @@ class _RejectFileState extends State<RejectFile> {
                             if (snapshot.data!.docs[index]["fileStatus"]
                                     .toString() ==
                                 "reject") {
+                              print(toalFileComplete);
                               return Padding(
                                 padding: EdgeInsets.all(5),
                                 child: Card(
@@ -143,13 +147,13 @@ class _RejectFileState extends State<RejectFile> {
                                                 snapshot.data!.docs[index]
                                                     .reference.id
                                                     .toString(),
-                                                style: TextStyle(
+                                                style: const TextStyle(
                                                     color: Colors.black,
                                                     fontSize: 16,
                                                     fontWeight:
                                                         FontWeight.w700),
                                               ),
-                                              SizedBox(
+                                              const SizedBox(
                                                 width: 5,
                                               ),
                                               FileStatusIcon(
@@ -158,18 +162,18 @@ class _RejectFileState extends State<RejectFile> {
                                                           ["fileStatus"])
                                             ],
                                           ),
-                                          SizedBox(
+                                          const SizedBox(
                                             height: 5,
                                           ),
                                           Row(
                                             children: [
-                                              Text(
+                                              const Text(
                                                 "File Name :- ",
                                                 style: TextStyle(
                                                     fontWeight:
                                                         FontWeight.w500),
                                               ),
-                                              SizedBox(
+                                              const SizedBox(
                                                 width: 5,
                                               ),
                                               Text(

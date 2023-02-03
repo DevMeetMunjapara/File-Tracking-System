@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'package:flutter/material.dart';
@@ -9,15 +11,23 @@ import 'package:fts/page/fileStatus.dart';
 import 'package:fts/splash/splashServices.dart';
 
 class TotalFile extends StatelessWidget {
+  late int allFileCount;
   TotalFile({
     super.key,
+    required this.allFileCount,
   });
+
+  int count = 0;
 
   final db = FirebaseFirestore.instance
       .collection("allUser")
       .doc(loginMobileNumber)
       .collection("allFile")
       .snapshots();
+
+  Widget allFile() {
+    return Text(allFileCount.toString());
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +47,7 @@ class TotalFile extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Row(
-                          children: [
+                          children: const [
                             Text(
                               "File Reject ",
                               style: TextStyle(fontWeight: FontWeight.w500),
@@ -98,6 +108,35 @@ class TotalFile extends StatelessWidget {
                   SizedBox(
                     height: 20,
                   ),
+                  Padding(
+                    padding: EdgeInsets.all(12),
+                    child: Container(
+                        padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
+                        decoration: BoxDecoration(
+                            color: Color.fromARGB(255, 198, 165, 254),
+                            border: Border.all(
+                                color: Color.fromARGB(255, 57, 2, 151)),
+                            borderRadius: BorderRadius.circular(10)),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            const Padding(
+                              padding: EdgeInsets.only(left: 10),
+                              child: Text(
+                                "Total File ",
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 16),
+                              ),
+                            ),
+                            allFile(),
+                          ],
+                        )),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
                   Expanded(
                     child: StreamBuilder(
                       stream: db,
@@ -118,7 +157,7 @@ class TotalFile extends StatelessWidget {
                         }
 
                         if (snapshot.hasData) {}
-
+//builder
                         return ListView.builder(
                           itemCount: snapshot.data!.docs.length,
                           itemBuilder: (context, index) {
