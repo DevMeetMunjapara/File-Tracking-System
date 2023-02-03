@@ -4,7 +4,7 @@ import 'package:fts/customwidget/fullbutton.dart';
 import 'package:fts/login/otpscreen.dart';
 
 class phoneverification extends StatefulWidget {
-  const phoneverification({super.key});
+  phoneverification({super.key});
 
   static String verify = "";
 
@@ -27,6 +27,8 @@ class _phoneverificationState extends State<phoneverification> {
   }
 
   @override
+  bool loading = false;
+
   Widget build(BuildContext context) {
     return Scaffold(
       body: Padding(
@@ -87,11 +89,11 @@ class _phoneverificationState extends State<phoneverification> {
                     filled: true,
                     fillColor: Color.fromARGB(255, 231, 231, 231),
                   ),
-                  validator: (phno) {
-                    if (phno!.isEmpty || phno == null) {
+                  validator: (value) {
+                    if (value!.isEmpty || value == null) {
                       return "Enter Mobile Number";
                     }
-                    if (phno.length < 10) {
+                    if (value.length < 10) {
                       return 'Mobile Number Must Be 10 Digits!';
                     }
                   },
@@ -105,18 +107,30 @@ class _phoneverificationState extends State<phoneverification> {
               ),
               FullButton(
                 title: "Send OTP",
+                loading: loading,
                 onPressed: () async {
-                  await FirebaseAuth.instance.verifyPhoneNumber(
-                    phoneNumber: '${_mobileNumber.text + phone}',
-                    verificationCompleted: (PhoneAuthCredential credential) {},
-                    verificationFailed: (FirebaseAuthException e) {},
-                    codeSent: (String verificationId, int? resendToken) {
-                      phoneverification.verify = verificationId;
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => otpscreen()));
-                    },
-                    codeAutoRetrievalTimeout: (String verificationId) {},
-                  );
+                  if (_mobileKey.currentState!.validate()) {
+                    setState(() {
+                      loading = true;
+                    });
+                    await FirebaseAuth.instance.verifyPhoneNumber(
+                      phoneNumber: '${_mobileNumber.text + phone}',
+                      verificationCompleted:
+                          (PhoneAuthCredential credential) {},
+                      verificationFailed: (FirebaseAuthException e) {},
+                      codeSent: (String verificationId, int? resendToken) {
+                        phoneverification.verify = verificationId;
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => otpscreen()));
+                        setState(() {
+                          loading = false;
+                        });
+                      },
+                      codeAutoRetrievalTimeout: (String verificationId) {},
+                    );
+                  }
                 },
               ),
             ],

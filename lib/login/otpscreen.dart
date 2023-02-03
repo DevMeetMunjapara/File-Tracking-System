@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:fts/customwidget/fullbutton.dart';
 import 'package:fts/home.dart';
 import 'package:fts/login/phoneverification.dart';
+import 'package:fts/splash/splashScreen.dart';
+import 'package:fts/splash/splashServices.dart';
 import 'package:pinput/pinput.dart';
 
 class otpscreen extends StatefulWidget {
@@ -16,6 +18,7 @@ class _otpscreenState extends State<otpscreen> {
   final FirebaseAuth auth = FirebaseAuth.instance;
 
   @override
+  bool loading = false;
   Widget build(BuildContext context) {
     final defaultPinTheme = PinTheme(
       width: 56,
@@ -106,8 +109,12 @@ class _otpscreenState extends State<otpscreen> {
               ),
               FullButton(
                 title: "Verify Phone Number",
+                loading: loading,
                 onPressed: () async {
                   try {
+                    setState(() {
+                      loading = true;
+                    });
                     PhoneAuthCredential credential =
                         PhoneAuthProvider.credential(
                             verificationId: phoneverification.verify,
@@ -115,13 +122,21 @@ class _otpscreenState extends State<otpscreen> {
 
                     // Sign the user in (or link) with the credential
                     await auth.signInWithCredential(credential);
+                    // ignore: use_build_context_synchronously
                     Navigator.pushAndRemoveUntil(
                         context,
-                        MaterialPageRoute(builder: (context) => Home()),
+                        MaterialPageRoute(builder: (context) => SplashScreen()),
                         (route) => false);
+
+                    setState(() {
+                      loading = false;
+                    });
                   } catch (e) {
                     print("Wrong OTP");
                   }
+                  setState(() {
+                    loading = false;
+                  });
                 },
               ),
             ],
