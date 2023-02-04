@@ -53,45 +53,40 @@ class _MyDrawerState extends State<MyDrawer> {
                     ),
                   ],
                 )),
-            Container(
-              padding: EdgeInsets.only(top: 15),
-              child: Column(
-                children: [
-                  Material(
-                    child: InkWell(
-                      onTap: () async {
-                        await auth.signOut().then((value) =>
-                            Navigator.pushAndRemoveUntil(
-                                context as BuildContext,
-                                MaterialPageRoute(
-                                    builder: (context) => phoneverification()),
-                                (route) => false));
-                      },
-                      child: Padding(
-                        padding: EdgeInsets.all(15),
-                        child: Row(
-                          children: const [
-                            Expanded(
-                                child: Icon(
-                              Icons.logout,
-                              size: 20,
-                              color: Colors.black,
-                            )),
-                            Expanded(
-                                flex: 3,
-                                child: Text(
-                                  "Logout",
-                                  style: TextStyle(
-                                      color: Colors.black, fontSize: 16),
-                                ))
-                          ],
-                        ),
-                      ),
-                    ),
-                  )
-                ],
-              ),
-            )
+            ListTile(
+                leading: const Icon(Icons.person),
+                iconColor: Colors.black,
+                title: const Text('Profile'),
+                onTap: () {}),
+            ListTile(
+              leading: const Icon(Icons.file_copy),
+              iconColor: Colors.black,
+              title: const Text('Total File'),
+              onTap: () {
+                Navigator.pop(context);
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.file_download_done),
+              iconColor: Colors.black,
+              title: const Text('Complete File'),
+              onTap: () {
+                Navigator.pop(context);
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.logout),
+              iconColor: Colors.black,
+              title: const Text('LogOut'),
+              onTap: () async {
+                await auth.signOut().then((value) =>
+                    Navigator.pushAndRemoveUntil(
+                        context as BuildContext,
+                        MaterialPageRoute(
+                            builder: (context) => phoneverification()),
+                        (route) => false));
+              },
+            ),
           ],
         ),
       ),

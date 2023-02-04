@@ -1,17 +1,22 @@
+import 'dart:async';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:fts/customwidget/drawer.dart';
 import 'package:fts/customwidget/fullbutton.dart';
+import 'package:fts/customwidget/notificationService.dart';
 import 'package:fts/main.dart';
 import 'package:fts/page/completeFile.dart';
 import 'package:fts/page/fileStatus.dart';
 import 'package:fts/page/notification.dart';
 import 'package:fts/page/pendingFile.dart';
 import 'package:fts/page/rejectFile.dart';
-import 'package:fts/page/totalFile.dart';
+
 import 'package:fts/splash/splashServices.dart';
+import 'package:fts/page/totalFile.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 Color PrimaryColor = Color.fromARGB(255, 84, 22, 208);
 
@@ -23,14 +28,15 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  //var
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
   GlobalKey<FormState> TrackingFrom = GlobalKey<FormState>();
 
   TextEditingController trakingId = TextEditingController();
 
+  bool loading = false;
   int myIndex = 0;
+  int notificationCount = -1;
   List<Widget> list = [
     Home(),
     RejectFile(),
@@ -38,27 +44,6 @@ class _HomeState extends State<Home> {
   int totalFile = 0;
   int completeFileCount = 0;
   void getFileCount() {
-    final approveFileCount = FirebaseFirestore.instance
-        .collection("allUser")
-        .doc(loginMobileNumber)
-        .collection("allFile")
-        .snapshots();
-
-    StreamBuilder(
-      stream: approveFileCount,
-      builder: (context, snapshot) {
-        if (snapshot.hasData) {}
-        return ListView.builder(
-            itemCount: snapshot.data!.docs.length,
-            itemBuilder: (contexti, index) {
-              print(snapshot.data!.docs.length);
-              if (snapshot.data!.docs[index]["fileStatus"] == "reject") {
-                print(snapshot.data!.docs[index]["fileStatus"].toString());
-              }
-            });
-      },
-    );
-
     final countDocs = FirebaseFirestore.instance
         .collection("allUser")
         .doc(loginMobileNumber)
@@ -74,7 +59,37 @@ class _HomeState extends State<Home> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    getNotificationCount();
     getFileCount();
+  }
+
+  void getNotificationCount() {
+    print("object");
+    // int a = 5;
+    // var perfs = await SharedPreferences.getInstance();
+    // perfs.setString("notificationCount", a.toString());
+    // var count = perfs.getString("notificationCount");
+    // print("---$count");
+
+    Stream<QuerySnapshot<Map<String, dynamic>>> notificationSterem =
+        FirebaseFirestore.instance
+            .collection("allUser")
+            .doc(loginMobileNumber)
+            .collection("notification")
+            .snapshots();
+
+    StreamSubscription<QuerySnapshot<Map<String, dynamic>>> streamSubscriptio =
+        notificationSterem.listen((event) {
+      if (event.docs.isEmpty) {
+        return;
+      }
+      print(event.docs);
+      notificationCount += 1;
+      print(notificationCount);
+      var newFileAdd = event.docs.last.id;
+      NotificationWidget.showNotificationOnFirebase(
+          title: "New File Add", body: "the New File Name is $newFileAdd");
+    });
   }
 
   @override
@@ -100,12 +115,23 @@ class _HomeState extends State<Home> {
                   icon: Icon(Icons.person));
             })),
         actions: [
-          IconButton(
-              onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => MyNotification()));
-              },
-              icon: Icon(Icons.notifications))
+          Padding(
+            padding: EdgeInsets.only(right: 10),
+            child: IconButton(
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => MyNotification()));
+                },
+                icon: Badge(
+                    smallSize: 15,
+                    label: Text("3"),
+                    child: Icon(
+                      Icons.notifications,
+                      size: 25,
+                    ))),
+          )
         ],
       ),
       drawer: Drawer(child: MyDrawer()),
@@ -343,12 +369,21 @@ class _HomeState extends State<Home> {
                       ),
                       FullButton(
                           title: "Track File",
+                          loading: loading,
                           onPressed: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        FileStatus(trckingId: trakingId.text)));
+                            if (TrackingFrom.currentState!.validate()) {
+                              setState(() {
+                                loading = true;
+                              });
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => FileStatus(
+                                          trckingId: trakingId.text)));
+                              setState(() {
+                                loading = false;
+                              });
+                            }
                           }),
                     ],
                   ),

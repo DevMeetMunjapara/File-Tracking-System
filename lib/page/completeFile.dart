@@ -21,8 +21,6 @@ class _CompleteFileState extends State<CompleteFile> {
       .collection("allFile")
       .snapshots();
 
-  int count = 1;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -52,7 +50,7 @@ class _CompleteFileState extends State<CompleteFile> {
                             ),
                           ],
                         ),
-                        const  SizedBox(
+                        const SizedBox(
                           width: 5,
                         ),
                         const Text(
@@ -63,7 +61,7 @@ class _CompleteFileState extends State<CompleteFile> {
                           width: 5,
                         ),
                         Row(
-                          children:const [
+                          children: const [
                             Text(
                               "In Procces ",
                               style: TextStyle(fontWeight: FontWeight.w500),
@@ -74,10 +72,10 @@ class _CompleteFileState extends State<CompleteFile> {
                             ),
                           ],
                         ),
-                        const   SizedBox(
+                        const SizedBox(
                           width: 5,
                         ),
-                        const  Text(
+                        const Text(
                           "|",
                           style: TextStyle(fontSize: 30),
                         ),
@@ -85,7 +83,7 @@ class _CompleteFileState extends State<CompleteFile> {
                           width: 5,
                         ),
                         Row(
-                          children: const[
+                          children: const [
                             Text(
                               "File Approve ",
                               style: TextStyle(fontWeight: FontWeight.w500),
@@ -99,55 +97,8 @@ class _CompleteFileState extends State<CompleteFile> {
                       ],
                     ),
                   ),
-                  const  SizedBox(
+                  const SizedBox(
                     height: 20,
-                  ),
-                  Padding(
-                    padding: EdgeInsets.all(12),
-                    child: Container(
-                        padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
-                        decoration: BoxDecoration(
-                            color: Color.fromARGB(255, 198, 165, 254),
-                            border: Border.all(
-                                color: Color.fromARGB(255, 57, 2, 151)),
-                            borderRadius: BorderRadius.circular(10)),
-                        child: Row(
-                          children: [
-                            Padding(
-                              padding: EdgeInsets.only(left: 10),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: const [
-                                  Text(
-                                    "Total File In Process",
-                                    style: TextStyle(
-                                        color: Colors.black,
-                                        fontWeight: FontWeight.w500,
-                                        fontSize: 16),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Expanded(
-                              child: Padding(
-                                padding: EdgeInsets.only(right: 20),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.end,
-                                  children: [
-                                    Text(
-                                      count.toString(),
-                                      textAlign: TextAlign.left,
-                                      style: const TextStyle(
-                                          color: Colors.black,
-                                          fontWeight: FontWeight.w500,
-                                          fontSize: 16),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ],
-                        )),
                   ),
                   const SizedBox(
                     height: 20,
@@ -179,8 +130,6 @@ class _CompleteFileState extends State<CompleteFile> {
                             if (snapshot.data!.docs[index]["fileStatus"]
                                     .toString() ==
                                 "approve") {
-                              count += 1;
-                              print(count);
                               return Padding(
                                 padding: EdgeInsets.all(5),
                                 child: Card(
@@ -203,34 +152,34 @@ class _CompleteFileState extends State<CompleteFile> {
                                                     fontWeight:
                                                         FontWeight.w700),
                                               ),
-                                              const     SizedBox(
+                                              const SizedBox(
                                                 width: 5,
                                               ),
-                                                  FileStatusIcon(
+                                              FileStatusIcon(
                                                   fileStatus:
                                                       snapshot.data!.docs[index]
                                                           ["fileStatus"])
                                             ],
                                           ),
-                                          const   SizedBox(
+                                          const SizedBox(
                                             height: 5,
                                           ),
                                           Row(
                                             children: [
-                                              const  Text(
+                                              const Text(
                                                 "File Name :- ",
                                                 style: TextStyle(
                                                     fontWeight:
                                                         FontWeight.w500),
                                               ),
-                                              const   SizedBox(
+                                              const SizedBox(
                                                 width: 5,
                                               ),
                                               Text(
                                                 snapshot.data!
                                                     .docs[index]["fileName"]
                                                     .toString(),
-                                                style:const TextStyle(
+                                                style: const TextStyle(
                                                     fontSize: 14,
                                                     fontWeight:
                                                         FontWeight.w400),
@@ -239,7 +188,7 @@ class _CompleteFileState extends State<CompleteFile> {
                                           ),
                                           Row(
                                             children: [
-                                              const  Text(
+                                              const Text(
                                                 "File Submit Date :- ",
                                                 style: TextStyle(
                                                     fontWeight:
@@ -252,7 +201,7 @@ class _CompleteFileState extends State<CompleteFile> {
                                                 snapshot.data!
                                                     .docs[index]["submitDate"]
                                                     .toString(),
-                                                style:const TextStyle(
+                                                style: const TextStyle(
                                                     fontSize: 14,
                                                     fontWeight:
                                                         FontWeight.w400),
@@ -280,7 +229,7 @@ class _CompleteFileState extends State<CompleteFile> {
                                                                   .toString(),
                                                             )));
                                               },
-                                              child:const Text(
+                                              child: const Text(
                                                 "Trak File",
                                                 style: TextStyle(
                                                     color: Colors.white),
