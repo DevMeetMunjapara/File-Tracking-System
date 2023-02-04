@@ -119,7 +119,12 @@ class TotalFile extends StatelessWidget {
                           );
                         }
 
-                        if (snapshot.hasData) {}
+                        if (snapshot.hasData) {
+                          print("object");
+                          print(loginMobileNumber);
+                          print("object");
+                          print("object");
+                        }
 
                         return ListView.builder(
                           itemCount: snapshot.data!.docs.length,
