@@ -5,28 +5,30 @@ import 'package:flutter/src/widgets/framework.dart';
 
 class FileStatusIcon extends StatelessWidget {
   var fileStatus;
-  var mysize = 20;
+  var size = 20;
+  var setSize;
   FileStatusIcon({
     super.key,
+    this.setSize,
     required this.fileStatus,
   });
   Widget iconFun(String status) {
     if (status == "reject") {
       return Icon(
         Icons.cancel,
-        size: 20,
+        size: setSize != null ? setSize : size,
         color: Colors.red,
       );
     } else if (status == "process") {
       return Icon(
         Icons.work_history,
-        size: 20,
+        size: setSize != null ? setSize : size,
         color: Color.fromARGB(255, 234, 187, 17),
       );
     } else if (status == "approve") {
       return Icon(
         Icons.verified,
-        size: 20,
+        size: setSize != null ? setSize : size,
         color: Color.fromARGB(255, 15, 161, 20),
       );
     }

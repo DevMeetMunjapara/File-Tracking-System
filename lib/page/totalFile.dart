@@ -39,7 +39,7 @@ class TotalFile extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Row(
-                          children: [
+                          children: const [
                             Text(
                               "File Reject ",
                               style: TextStyle(fontWeight: FontWeight.w500),
@@ -50,18 +50,18 @@ class TotalFile extends StatelessWidget {
                             ),
                           ],
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 5,
                         ),
-                        Text(
+                        const Text(
                           "|",
                           style: TextStyle(fontSize: 30),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 5,
                         ),
                         Row(
-                          children: [
+                          children: const [
                             Text(
                               "In Procces ",
                               style: TextStyle(fontWeight: FontWeight.w500),
@@ -72,18 +72,18 @@ class TotalFile extends StatelessWidget {
                             ),
                           ],
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 5,
                         ),
-                        Text(
+                        const Text(
                           "|",
                           style: TextStyle(fontSize: 30),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 5,
                         ),
                         Row(
-                          children: [
+                          children: const [
                             Text(
                               "File Approve ",
                               style: TextStyle(fontWeight: FontWeight.w500),
@@ -97,7 +97,7 @@ class TotalFile extends StatelessWidget {
                       ],
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   Expanded(
@@ -119,16 +119,12 @@ class TotalFile extends StatelessWidget {
                           );
                         }
 
-                        if (snapshot.hasData) {
-                          print("object");
-                          print(loginMobileNumber);
-                          print("object");
-                          print("object");
-                        }
+                        if (snapshot.hasData) {}
 
                         return ListView.builder(
                           itemCount: snapshot.data!.docs.length,
                           itemBuilder: (context, index) {
+                            print(snapshot.data!.docs[index].id);
                             return Padding(
                               padding: EdgeInsets.all(5),
                               child: Card(
@@ -145,12 +141,12 @@ class TotalFile extends StatelessWidget {
                                               snapshot.data!.docs[index]
                                                   .reference.id
                                                   .toString(),
-                                              style: TextStyle(
+                                              style: const TextStyle(
                                                   color: Colors.black,
                                                   fontSize: 16,
                                                   fontWeight: FontWeight.w700),
                                             ),
-                                            SizedBox(
+                                            const SizedBox(
                                               width: 5,
                                             ),
                                             FileStatusIcon(
@@ -158,24 +154,24 @@ class TotalFile extends StatelessWidget {
                                                     .docs[index]["fileStatus"])
                                           ],
                                         ),
-                                        SizedBox(
+                                        const SizedBox(
                                           height: 5,
                                         ),
                                         Row(
                                           children: [
-                                            Text(
+                                            const Text(
                                               "File Name :- ",
                                               style: TextStyle(
                                                   fontWeight: FontWeight.w500),
                                             ),
-                                            SizedBox(
+                                            const SizedBox(
                                               width: 5,
                                             ),
                                             Text(
                                               snapshot
                                                   .data!.docs[index]["fileName"]
                                                   .toString(),
-                                              style: TextStyle(
+                                              style: const TextStyle(
                                                   fontSize: 14,
                                                   fontWeight: FontWeight.w400),
                                             ),
@@ -183,25 +179,25 @@ class TotalFile extends StatelessWidget {
                                         ),
                                         Row(
                                           children: [
-                                            Text(
+                                            const Text(
                                               "File Submit Date :- ",
                                               style: TextStyle(
                                                   fontWeight: FontWeight.w500),
                                             ),
-                                            SizedBox(
+                                            const SizedBox(
                                               width: 5,
                                             ),
                                             Text(
                                               snapshot.data!
                                                   .docs[index]["submitDate"]
                                                   .toString(),
-                                              style: TextStyle(
+                                              style: const TextStyle(
                                                   fontSize: 14,
                                                   fontWeight: FontWeight.w400),
                                             ),
                                           ],
                                         ),
-                                        SizedBox(
+                                        const SizedBox(
                                           height: 5,
                                         ),
                                         ElevatedButton(
@@ -221,7 +217,7 @@ class TotalFile extends StatelessWidget {
                                                                 .toString(),
                                                           )));
                                             },
-                                            child: Text(
+                                            child: const Text(
                                               "Trak File",
                                               style: TextStyle(
                                                   color: Colors.white),
