@@ -16,7 +16,7 @@ class FileStatusIcon extends StatelessWidget {
     if (status == "reject") {
       return Icon(
         Icons.cancel,
-        size: setSize != null ? setSize : size,
+        size: setSize == null ? size : setSize,
         color: Colors.red,
       );
     } else if (status == "process") {
@@ -31,6 +31,8 @@ class FileStatusIcon extends StatelessWidget {
         size: setSize != null ? setSize : size,
         color: Color.fromARGB(255, 15, 161, 20),
       );
+    } else if (status == null) {
+      return Text("data");
     }
     return Icon(Icons.abc);
   }

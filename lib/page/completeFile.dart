@@ -4,6 +4,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:fts/customwidget/drawer.dart';
 import 'package:fts/customwidget/fileStatusIcon.dart';
+import 'package:fts/customwidget/infoStatus.dart';
 import 'package:fts/page/fileStatus.dart';
 import 'package:fts/splash/splashServices.dart';
 
@@ -33,70 +34,7 @@ class _CompleteFileState extends State<CompleteFile> {
             child: Container(
               child: Column(
                 children: [
-                  Padding(
-                    padding: EdgeInsets.only(left: 10),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Row(
-                          children: const [
-                            Text(
-                              "File Reject ",
-                              style: TextStyle(fontWeight: FontWeight.w500),
-                            ),
-                            Icon(
-                              Icons.cancel,
-                              color: Colors.red,
-                            ),
-                          ],
-                        ),
-                        const SizedBox(
-                          width: 5,
-                        ),
-                        const Text(
-                          "|",
-                          style: TextStyle(fontSize: 30),
-                        ),
-                        const SizedBox(
-                          width: 5,
-                        ),
-                        Row(
-                          children: const [
-                            Text(
-                              "In Procces ",
-                              style: TextStyle(fontWeight: FontWeight.w500),
-                            ),
-                            Icon(
-                              Icons.work_history,
-                              color: Color.fromARGB(255, 234, 187, 17),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(
-                          width: 5,
-                        ),
-                        const Text(
-                          "|",
-                          style: TextStyle(fontSize: 30),
-                        ),
-                        const SizedBox(
-                          width: 5,
-                        ),
-                        Row(
-                          children: const [
-                            Text(
-                              "File Approve ",
-                              style: TextStyle(fontWeight: FontWeight.w500),
-                            ),
-                            Icon(
-                              Icons.verified,
-                              color: Color.fromARGB(255, 15, 161, 20),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
+                  InfoStatus(),
                   const SizedBox(
                     height: 20,
                   ),
@@ -156,9 +94,10 @@ class _CompleteFileState extends State<CompleteFile> {
                                                 width: 5,
                                               ),
                                               FileStatusIcon(
-                                                  fileStatus:
-                                                      snapshot.data!.docs[index]
-                                                          ["fileStatus"])
+                                                fileStatus: snapshot.data!
+                                                    .docs[index]["fileStatus"],
+                                                setSize: 25.toDouble(),
+                                              )
                                             ],
                                           ),
                                           const SizedBox(

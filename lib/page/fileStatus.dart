@@ -6,6 +6,7 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:fts/customwidget/fileStatusIcon.dart';
 import 'package:fts/customwidget/fullbutton.dart';
+import 'package:fts/customwidget/infoStatus.dart';
 import 'package:fts/splash/splashServices.dart';
 
 class FileStatus extends StatelessWidget {
@@ -70,37 +71,44 @@ class FileStatus extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Align(
-                    alignment: Alignment.center,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          "Tracking ID :-  ",
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 20),
-                        ),
-                        Text(
-                          snapshot.data!.id,
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 20),
-                        ),
-                        SizedBox(
-                          width: 5,
-                        ),
-                        FileStatusIcon(
-                          fileStatus: data["fileStatus"],
-                          setSize: 30.toDouble(),
-                        )
-                      ],
-                    ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  const Text(
+                    "Current File Status / Information",
+                    style: TextStyle(
+                        color: Color.fromARGB(255, 60, 102, 219),
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20),
                   ),
                   SizedBox(
                     height: 20,
                   ),
-                  Text(
-                    "Current File Status ",
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                  Container(
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(5),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black,
+                            blurRadius: 2.5,
+                          ),
+                        ]),
+                    width: double.infinity,
+                    child: Padding(
+                      padding: EdgeInsets.all(10),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          showFileData(
+                              "Tracking Id", snapshot.data!.reference.id),
+                          showFileData(
+                            "File Status",
+                            snapshot.data!.reference.id,
+                          ),
+                        ],
+                      ),
+                    ),
                   )
                 ],
               ),
@@ -110,6 +118,37 @@ class FileStatus extends StatelessWidget {
 
         return CircularProgressIndicator();
       },
+    );
+  }
+
+  Widget showFileData(String title, String fileData, {IconData}) {
+    return Padding(
+      padding: EdgeInsets.fromLTRB(10, 15, 10, 5),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            title,
+            style: TextStyle(fontSize: 17, color: Colors.blue),
+          ),
+          SizedBox(
+            height: 10,
+          ),
+          Row(
+            children: [
+              Text(
+                fileData,
+                style: TextStyle(fontSize: 15),
+              ),
+              FileStatusIcon(fileStatus: IconData)
+            ],
+          ),
+          Divider(
+            thickness: 1,
+            color: Colors.black,
+          )
+        ],
+      ),
     );
   }
 
@@ -127,70 +166,7 @@ class FileStatus extends StatelessWidget {
           child: Container(
             child: Column(
               children: [
-                Padding(
-                  padding: EdgeInsets.only(left: 10),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Row(
-                        children: [
-                          Text(
-                            "File Reject ",
-                            style: TextStyle(fontWeight: FontWeight.w500),
-                          ),
-                          Icon(
-                            Icons.cancel,
-                            color: Colors.red,
-                          ),
-                        ],
-                      ),
-                      SizedBox(
-                        width: 5,
-                      ),
-                      Text(
-                        "|",
-                        style: TextStyle(fontSize: 30),
-                      ),
-                      SizedBox(
-                        width: 5,
-                      ),
-                      Row(
-                        children: [
-                          Text(
-                            "In Procces ",
-                            style: TextStyle(fontWeight: FontWeight.w500),
-                          ),
-                          Icon(
-                            Icons.work_history,
-                            color: Color.fromARGB(255, 234, 187, 17),
-                          ),
-                        ],
-                      ),
-                      SizedBox(
-                        width: 5,
-                      ),
-                      Text(
-                        "|",
-                        style: TextStyle(fontSize: 30),
-                      ),
-                      SizedBox(
-                        width: 5,
-                      ),
-                      Row(
-                        children: [
-                          Text(
-                            "File Approve ",
-                            style: TextStyle(fontWeight: FontWeight.w500),
-                          ),
-                          Icon(
-                            Icons.verified,
-                            color: Color.fromARGB(255, 15, 161, 20),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
+                InfoStatus(),
                 getFileData(),
               ],
             ),
