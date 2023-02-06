@@ -37,6 +37,10 @@ class FileStatus extends StatelessWidget {
             )),
           );
         }
+        print(snapshot);
+        if (snapshot.data == null) {
+          return Text("No Data Available ");
+        }
         if (snapshot.hasData && !snapshot.data!.exists) {
           return Padding(
             padding: EdgeInsets.only(top: 50),
@@ -75,7 +79,7 @@ class FileStatus extends StatelessWidget {
                     height: 20,
                   ),
                   const Text(
-                    "Current File Status / Information",
+                    ">> Current File Status / Information",
                     style: TextStyle(
                         color: Color.fromARGB(255, 60, 102, 219),
                         fontWeight: FontWeight.bold,
@@ -102,14 +106,100 @@ class FileStatus extends StatelessWidget {
                         children: [
                           showFileData(
                               "Tracking Id", snapshot.data!.reference.id),
-                          showFileData(
-                            "File Status",
-                            snapshot.data!.reference.id,
+                          showFileData("File Name", data["fileName"]),
+                          // Show Costom Data
+                          Padding(
+                            padding: EdgeInsets.fromLTRB(10, 15, 10, 5),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                const Text(
+                                  "File Status",
+                                  style: TextStyle(
+                                      fontSize: 17, color: Colors.blue),
+                                ),
+                                const SizedBox(
+                                  height: 10,
+                                ),
+                                Row(
+                                  children: [
+                                    Text(
+                                      data["fileStatus"],
+                                      style: TextStyle(
+                                          fontSize: 15,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                    const SizedBox(
+                                      width: 10,
+                                    ),
+                                    FileStatusIcon(
+                                      fileStatus: data["fileStatus"],
+                                      setSize: 25.toDouble(),
+                                    ),
+                                  ],
+                                ),
+                                const Divider(
+                                  thickness: 1,
+                                  color: Colors.black,
+                                )
+                              ],
+                            ),
                           ),
+                          //End Costom Data
+                          showFileData("Last Update", data["lastUpdateReason"]),
+                          showFileData("Last Update Data & Time",
+                              "${data["lastUpdateDate"] + "  " + data["lastUpdateTime"]}"),
+                          showFileData("Current File In Department",
+                              data["currentDepartment"]),
+                          showFileData("Current File In Sub Department",
+                              data["currentSubDepartment"]),
                         ],
                       ),
                     ),
-                  )
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  const Text(
+                    ">> File Detials",
+                    style: TextStyle(
+                        color: Color.fromARGB(255, 60, 102, 219),
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20),
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Container(
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(5),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black,
+                            blurRadius: 2.5,
+                          ),
+                        ]),
+                    width: double.infinity,
+                    child: Padding(
+                      padding: EdgeInsets.all(10),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          showFileData("File Name", data["fileName"]),
+                          showFileData("File Colour", data["colour"]),
+                          showFileData("File Page", data["totalPages"]),
+                          showFileData("File Submite Date", data["submitDate"]),
+                          showFileData("File Submite Date & Time",
+                              "${data["submitDate"] + "  " + data["submitTime"]}"),
+                          showFileData("Submit File In Department",
+                              data["submitDepartment"]),
+                          showFileData("Submit File In Sub Department",
+                              data["submitSubDepartment"]),
+                        ],
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -129,21 +219,18 @@ class FileStatus extends StatelessWidget {
         children: [
           Text(
             title,
-            style: TextStyle(fontSize: 17, color: Colors.blue),
+            style: TextStyle(
+                fontSize: 17, color: Colors.blue, fontWeight: FontWeight.bold),
           ),
-          SizedBox(
+          const SizedBox(
             height: 10,
           ),
-          Row(
-            children: [
-              Text(
-                fileData,
-                style: TextStyle(fontSize: 15),
-              ),
-              FileStatusIcon(fileStatus: IconData)
-            ],
+          Text(
+            fileData,
+            textAlign: TextAlign.justify,
+            style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
           ),
-          Divider(
+          const Divider(
             thickness: 1,
             color: Colors.black,
           )
@@ -168,6 +255,9 @@ class FileStatus extends StatelessWidget {
               children: [
                 InfoStatus(),
                 getFileData(),
+                SizedBox(
+                  height: 100,
+                )
               ],
             ),
           ),

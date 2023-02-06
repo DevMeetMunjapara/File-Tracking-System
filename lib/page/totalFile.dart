@@ -42,6 +42,7 @@ class TotalFile extends StatelessWidget {
                     child: StreamBuilder(
                       stream: db,
                       builder: (context, snapshot) {
+                        print(loginMobileNumber);
                         if (snapshot.connectionState ==
                             ConnectionState.waiting) {
                           return const Center(
