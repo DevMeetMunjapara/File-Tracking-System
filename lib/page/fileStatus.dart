@@ -49,7 +49,7 @@ class _FileStatusState extends State<FileStatus> {
             ),
             isActive: index == 0,
             content: FutureBuilder(
-              future: fileData.doc("FTS20232").get(),
+              future: fileData.doc(widget.trckingId).get(),
               builder: (context, snapshot) {
                 if (snapshot.hasError) {
                   return const Padding(
@@ -194,7 +194,7 @@ class _FileStatusState extends State<FileStatus> {
           content: Padding(
               padding: EdgeInsets.all(4),
               child: FutureBuilder(
-                future: fileData.doc("FTS20232").get(),
+                future: fileData.doc(widget.trckingId).get(),
                 builder: (context, snapshot) {
                   if (snapshot.hasError) {
                     return const Padding(
@@ -295,7 +295,7 @@ class _FileStatusState extends State<FileStatus> {
             ),
             isActive: index == 2,
             content: FutureBuilder(
-              future: fileData.doc("FTS20232").get(),
+              future: fileData.doc(widget.trckingId).get(),
               builder: (context, snapshot) {
                 if (snapshot.hasError) {
                   return const Padding(

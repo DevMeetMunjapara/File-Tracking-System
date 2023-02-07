@@ -41,6 +41,7 @@ class _PendingFileState extends State<PendingFile> {
                     child: StreamBuilder(
                       stream: db,
                       builder: (context, snapshot) {
+                        print("Ok Ok");
                         if (snapshot.connectionState ==
                             ConnectionState.waiting) {
                           return const Center(
@@ -55,15 +56,23 @@ class _PendingFileState extends State<PendingFile> {
                             ),
                           );
                         }
+                        if (snapshot == null) {
+                          print("-- No Data");
+                        }
 
                         if (snapshot.hasData) {}
+                        print("-- No Data Found");
+                        print(snapshot.data!.docs.length.toString());
+                        print(snapshot.data!.docs[1].reference);
 
                         return ListView.builder(
                           itemCount: snapshot.data!.docs.length,
                           itemBuilder: (context, index) {
                             if (snapshot.data!.docs[index]["fileStatus"]
                                     .toString() ==
-                                "process") {
+                                "Process") {
+                              print(snapshot.data!.docs[index].reference.id
+                                  .toString());
                               print(snapshot.data!.docs[index].reference.id
                                   .toString());
                               return Padding(

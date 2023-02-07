@@ -13,19 +13,19 @@ class FileStatusIcon extends StatelessWidget {
     required this.fileStatus,
   });
   Widget iconFun(String status) {
-    if (status == "reject") {
+    if (status == "Reject") {
       return Icon(
         Icons.cancel,
         size: setSize == null ? size : setSize,
         color: Colors.red,
       );
-    } else if (status == "process") {
+    } else if (status == "Process") {
       return Icon(
         Icons.work_history,
         size: setSize != null ? setSize : size,
         color: Color.fromARGB(255, 234, 187, 17),
       );
-    } else if (status == "approve") {
+    } else if (status == "Approved") {
       return Icon(
         Icons.verified,
         size: setSize != null ? setSize : size,

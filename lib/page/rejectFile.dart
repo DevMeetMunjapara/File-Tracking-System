@@ -67,7 +67,7 @@ class _RejectFileState extends State<RejectFile> {
                           itemBuilder: (context, index) {
                             if (snapshot.data!.docs[index]["fileStatus"]
                                     .toString() ==
-                                "reject") {
+                                "Reject") {
                               print(toalFileComplete);
                               return Padding(
                                 padding: EdgeInsets.all(5),

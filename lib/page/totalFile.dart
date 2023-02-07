@@ -13,7 +13,7 @@ class TotalFile extends StatelessWidget {
   var totalFile = 0;
   TotalFile({
     super.key,
-    required int allFileCount,
+    //required int allFileCount,
   });
 
   final db = FirebaseFirestore.instance
@@ -24,6 +24,7 @@ class TotalFile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print(loginMobileNumber);
     return Scaffold(
         appBar: AppBar(
           title: Text("All Files"),

@@ -6,6 +6,8 @@ import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:fts/customwidget/fullbutton.dart';
 import 'package:fts/home.dart';
 import 'package:fts/login/phoneverification.dart';
+import 'package:fts/page/completeFile.dart';
+import 'package:fts/page/totalFile.dart';
 import 'package:fts/splash/splashServices.dart';
 
 Color PrimaryColor = const Color.fromARGB(255, 84, 22, 208);
@@ -57,13 +59,17 @@ class _MyDrawerState extends State<MyDrawer> {
                 leading: const Icon(Icons.person),
                 iconColor: Colors.black,
                 title: const Text('Profile'),
-                onTap: () {}),
+                onTap: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => CompleteFile()));
+                }),
             ListTile(
               leading: const Icon(Icons.file_copy),
               iconColor: Colors.black,
               title: const Text('Total File'),
               onTap: () {
-                Navigator.pop(context);
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => TotalFile()));
               },
             ),
             ListTile(
@@ -71,7 +77,8 @@ class _MyDrawerState extends State<MyDrawer> {
               iconColor: Colors.black,
               title: const Text('Complete File'),
               onTap: () {
-                Navigator.pop(context);
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => CompleteFile()));
               },
             ),
             ListTile(

@@ -38,9 +38,6 @@ class _CompleteFileState extends State<CompleteFile> {
                   const SizedBox(
                     height: 20,
                   ),
-                  const SizedBox(
-                    height: 20,
-                  ),
                   Expanded(
                     child: StreamBuilder(
                       stream: db,
@@ -67,7 +64,8 @@ class _CompleteFileState extends State<CompleteFile> {
                           itemBuilder: (context, index) {
                             if (snapshot.data!.docs[index]["fileStatus"]
                                     .toString() ==
-                                "approve") {
+                                "Approved") {
+                              print(snapshot.data!.docs.length);
                               return Padding(
                                 padding: EdgeInsets.all(5),
                                 child: Card(
@@ -169,7 +167,7 @@ class _CompleteFileState extends State<CompleteFile> {
                                                             )));
                                               },
                                               child: const Text(
-                                                "Trak File",
+                                                "Track File",
                                                 style: TextStyle(
                                                     color: Colors.white),
                                               ))
