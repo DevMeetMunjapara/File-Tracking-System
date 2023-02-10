@@ -27,7 +27,7 @@ class _FileStatusState extends State<FileStatus> {
       .doc(loginMobileNumber)
       .collection("allFile");
 
-  int index = 2;
+  late int index = 2;
 
   Widget getFileData() {
     return Stepper(
@@ -44,10 +44,207 @@ class _FileStatusState extends State<FileStatus> {
       steps: [
         Step(
             title: Text(
-              "Current File Status / Information",
+              "Owner Details",
               style: TextStyle(fontSize: 20, color: PrimaryColor),
             ),
             isActive: index == 0,
+            content: FutureBuilder(
+              future: fileData.doc(widget.trckingId).get(),
+              builder: (context, snapshot) {
+                if (snapshot.hasError) {
+                  return const Padding(
+                    padding: EdgeInsets.only(top: 40),
+                    child: Center(
+                        child: Text(
+                      "File Data Not Exsit",
+                      textScaleFactor: 1.5,
+                      style: TextStyle(color: Colors.red),
+                    )),
+                  );
+                }
+
+                if (snapshot.data == null) {
+                  return Text("No Data Available ");
+                }
+                if (snapshot.hasData && !snapshot.data!.exists) {
+                  return Padding(
+                    padding: EdgeInsets.only(top: 50),
+                    child: Center(
+                        child: Column(
+                      children: const [
+                        Image(
+                          image: AssetImage("img/home/notFound.png"),
+                          height: 90,
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        Text(
+                          "File Not Found",
+                          textScaleFactor: 1.7,
+                          style: TextStyle(
+                              color: Colors.red, fontWeight: FontWeight.w500),
+                        )
+                      ],
+                    )),
+                  );
+                }
+                if (snapshot.connectionState == ConnectionState.done) {
+                  Map<String, dynamic> data =
+                      snapshot.data!.data() as Map<String, dynamic>;
+                  print(data);
+                  return Padding(
+                    padding: EdgeInsets.only(top: 0, left: 0, right: 0),
+                    child: Container(
+                      width: double.infinity,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SizedBox(
+                            height: 5,
+                          ),
+                          Container(
+                            decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(5),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.black,
+                                    blurRadius: 2.5,
+                                  ),
+                                ]),
+                            width: double.infinity,
+                            child: Padding(
+                              padding: EdgeInsets.all(10),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  showFileData("Owner Name", data["name"]),
+                                  showFileData("Owner Phone Number",
+                                      data["mobileNumber"]),
+                                  showFileData("Owner Email", data["email"]),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  );
+                }
+
+                return CircularProgressIndicator();
+              },
+            )),
+        Step(
+          title: Text(
+            "File Details",
+            style: TextStyle(fontSize: 20, color: PrimaryColor),
+          ),
+          isActive: index == 1,
+          content: Padding(
+              padding: EdgeInsets.all(4),
+              child: FutureBuilder(
+                future: fileData.doc(widget.trckingId).get(),
+                builder: (context, snapshot) {
+                  if (snapshot.hasError) {
+                    return const Padding(
+                      padding: EdgeInsets.only(top: 40),
+                      child: Center(
+                          child: Text(
+                        "File Data Not Exsit",
+                        textScaleFactor: 1.5,
+                        style: TextStyle(color: Colors.red),
+                      )),
+                    );
+                  }
+                  print(snapshot);
+                  if (snapshot.data == null) {
+                    return Text("No Data Available ");
+                  }
+                  if (snapshot.hasData && !snapshot.data!.exists) {
+                    return Padding(
+                      padding: EdgeInsets.only(top: 50),
+                      child: Center(
+                          child: Column(
+                        children: const [
+                          Image(
+                            image: AssetImage("img/home/notFound.png"),
+                            height: 90,
+                          ),
+                          SizedBox(
+                            height: 20,
+                          ),
+                          Text(
+                            "File Not Found",
+                            textScaleFactor: 1.7,
+                            style: TextStyle(
+                                color: Colors.red, fontWeight: FontWeight.w500),
+                          )
+                        ],
+                      )),
+                    );
+                  }
+                  if (snapshot.connectionState == ConnectionState.done) {
+                    Map<String, dynamic> data =
+                        snapshot.data!.data() as Map<String, dynamic>;
+                    print(data);
+                    return Padding(
+                      padding: EdgeInsets.only(top: 0, left: 0, right: 0),
+                      child: Container(
+                        width: double.infinity,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Container(
+                              decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(5),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.black,
+                                      blurRadius: 2.5,
+                                    ),
+                                  ]),
+                              width: double.infinity,
+                              child: Padding(
+                                padding: EdgeInsets.all(10),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    showFileData("File Name", data["fileName"]),
+                                    showFileData("File Colour", data["colour"]),
+                                    showFileData(
+                                        "File Page", data["totalPages"]),
+                                    showFileData("File Submite Date",
+                                        data["submitDate"]),
+                                    showFileData("File Submite Date & Time",
+                                        "${data["submitDate"] + "  " + data["submitTime"]}"),
+                                    showFileData("Submit File In Department",
+                                        data["submitDepartment"]),
+                                    showFileData(
+                                        "Submit File In Sub Department",
+                                        data["submitSubDepartment"]),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    );
+                  }
+
+                  return CircularProgressIndicator();
+                },
+              )),
+        ),
+        Step(
+            title: Text(
+              "Current File Status / Information",
+              style: TextStyle(fontSize: 20, color: PrimaryColor),
+            ),
+            isActive: index == 2,
             content: FutureBuilder(
               future: fileData.doc(widget.trckingId).get(),
               builder: (context, snapshot) {
@@ -185,203 +382,6 @@ class _FileStatusState extends State<FileStatus> {
                 return CircularProgressIndicator();
               },
             )),
-        Step(
-          title: Text(
-            "File Details",
-            style: TextStyle(fontSize: 20, color: PrimaryColor),
-          ),
-          isActive: index == 1,
-          content: Padding(
-              padding: EdgeInsets.all(4),
-              child: FutureBuilder(
-                future: fileData.doc(widget.trckingId).get(),
-                builder: (context, snapshot) {
-                  if (snapshot.hasError) {
-                    return const Padding(
-                      padding: EdgeInsets.only(top: 40),
-                      child: Center(
-                          child: Text(
-                        "File Data Not Exsit",
-                        textScaleFactor: 1.5,
-                        style: TextStyle(color: Colors.red),
-                      )),
-                    );
-                  }
-                  print(snapshot);
-                  if (snapshot.data == null) {
-                    return Text("No Data Available ");
-                  }
-                  if (snapshot.hasData && !snapshot.data!.exists) {
-                    return Padding(
-                      padding: EdgeInsets.only(top: 50),
-                      child: Center(
-                          child: Column(
-                        children: const [
-                          Image(
-                            image: AssetImage("img/home/notFound.png"),
-                            height: 90,
-                          ),
-                          SizedBox(
-                            height: 20,
-                          ),
-                          Text(
-                            "File Not Found",
-                            textScaleFactor: 1.7,
-                            style: TextStyle(
-                                color: Colors.red, fontWeight: FontWeight.w500),
-                          )
-                        ],
-                      )),
-                    );
-                  }
-                  if (snapshot.connectionState == ConnectionState.done) {
-                    Map<String, dynamic> data =
-                        snapshot.data!.data() as Map<String, dynamic>;
-                    print(data);
-                    return Padding(
-                      padding: EdgeInsets.only(top: 0, left: 0, right: 0),
-                      child: Container(
-                        width: double.infinity,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Container(
-                              decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(5),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.black,
-                                      blurRadius: 2.5,
-                                    ),
-                                  ]),
-                              width: double.infinity,
-                              child: Padding(
-                                padding: EdgeInsets.all(10),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    showFileData("File Name", data["fileName"]),
-                                    showFileData("File Colour", data["colour"]),
-                                    showFileData(
-                                        "File Page", data["totalPages"]),
-                                    showFileData("File Submite Date",
-                                        data["submitDate"]),
-                                    showFileData("File Submite Date & Time",
-                                        "${data["submitDate"] + "  " + data["submitTime"]}"),
-                                    showFileData("Submit File In Department",
-                                        data["submitDepartment"]),
-                                    showFileData(
-                                        "Submit File In Sub Department",
-                                        data["submitSubDepartment"]),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    );
-                  }
-
-                  return CircularProgressIndicator();
-                },
-              )),
-        ),
-        Step(
-            title: Text(
-              "Owner Details",
-              style: TextStyle(fontSize: 20, color: PrimaryColor),
-            ),
-            isActive: index == 2,
-            content: FutureBuilder(
-              future: fileData.doc(widget.trckingId).get(),
-              builder: (context, snapshot) {
-                if (snapshot.hasError) {
-                  return const Padding(
-                    padding: EdgeInsets.only(top: 40),
-                    child: Center(
-                        child: Text(
-                      "File Data Not Exsit",
-                      textScaleFactor: 1.5,
-                      style: TextStyle(color: Colors.red),
-                    )),
-                  );
-                }
-
-                if (snapshot.data == null) {
-                  return Text("No Data Available ");
-                }
-                if (snapshot.hasData && !snapshot.data!.exists) {
-                  return Padding(
-                    padding: EdgeInsets.only(top: 50),
-                    child: Center(
-                        child: Column(
-                      children: const [
-                        Image(
-                          image: AssetImage("img/home/notFound.png"),
-                          height: 90,
-                        ),
-                        SizedBox(
-                          height: 20,
-                        ),
-                        Text(
-                          "File Not Found",
-                          textScaleFactor: 1.7,
-                          style: TextStyle(
-                              color: Colors.red, fontWeight: FontWeight.w500),
-                        )
-                      ],
-                    )),
-                  );
-                }
-                if (snapshot.connectionState == ConnectionState.done) {
-                  Map<String, dynamic> data =
-                      snapshot.data!.data() as Map<String, dynamic>;
-                  print(data);
-                  return Padding(
-                    padding: EdgeInsets.only(top: 0, left: 0, right: 0),
-                    child: Container(
-                      width: double.infinity,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          SizedBox(
-                            height: 5,
-                          ),
-                          Container(
-                            decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(5),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.black,
-                                    blurRadius: 2.5,
-                                  ),
-                                ]),
-                            width: double.infinity,
-                            child: Padding(
-                              padding: EdgeInsets.all(10),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  showFileData("Owner Name", data["name"]),
-                                  showFileData("Owner Phone Number",
-                                      data["mobileNumber"]),
-                                  showFileData("Owner Email", data["email"]),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  );
-                }
-
-                return CircularProgressIndicator();
-              },
-            ))
       ],
     );
   }
@@ -427,7 +427,7 @@ class _FileStatusState extends State<FileStatus> {
       body: Theme(
         data: Theme.of(context).copyWith(
             colorScheme: Theme.of(context).colorScheme.copyWith(
-                onSurface: Color.fromARGB(255, 65, 99, 255),
+                onSurface: Color.fromARGB(255, 0, 47, 255),
                 primary: PrimaryColor)),
         child: SingleChildScrollView(
           child: Padding(

@@ -20,7 +20,7 @@ class NotificationWidget {
       _notification.show(id, title, body, await notificationDetails());
 
   static notificationDetails() {
-    return NotificationDetails(
+    return const NotificationDetails(
         android: AndroidNotificationDetails(
       'channel id 1',
       'channel name',

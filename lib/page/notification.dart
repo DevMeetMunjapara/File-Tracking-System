@@ -11,6 +11,8 @@ import 'package:fts/customwidget/notificationService.dart';
 import 'package:fts/splash/splashServices.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'fileStatus.dart';
+
 class MyNotification extends StatefulWidget {
   const MyNotification({super.key});
 
@@ -113,6 +115,7 @@ class _MyNotificationState extends State<MyNotification> {
                           CircleAvatar(
                             backgroundColor: Color.fromARGB(255, 70, 68, 68),
                             child: FileStatusIcon(
+                                setSize: 25.toDouble(),
                                 fileStatus: snapshot.data!.docs[index]
                                     ["fileStatus"]),
                           ),
@@ -125,19 +128,40 @@ class _MyNotificationState extends State<MyNotification> {
                               Text(
                                 snapshot.data!.docs[index]["lastUpdateDate"],
                                 style: TextStyle(
-                                    fontSize: 18, fontWeight: FontWeight.bold),
+                                    fontSize: 16, fontWeight: FontWeight.bold),
                               ),
                               Text(
                                 "File ID :- " + snapshot.data!.docs[index].id,
                                 style: TextStyle(
-                                    fontSize: 18, fontWeight: FontWeight.w400),
+                                    fontSize: 16, fontWeight: FontWeight.w400),
                               ),
                               Text(
-                                "Update Date:- " +
-                                    snapshot.data!.docs[index]["lastUpdate"],
+                                "Update Time:- " +
+                                    snapshot.data!.docs[index]
+                                        ["lastUpdateTime"],
                                 style: TextStyle(
-                                    fontSize: 18, fontWeight: FontWeight.w400),
+                                    fontSize: 16, fontWeight: FontWeight.w400),
                               ),
+                              SizedBox(
+                                height: 3,
+                              ),
+                              ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                      backgroundColor: PrimaryColor),
+                                  onPressed: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => FileStatus(
+                                                  trckingId: snapshot.data!
+                                                      .docs[index].reference.id
+                                                      .toString(),
+                                                )));
+                                  },
+                                  child: const Text(
+                                    "Trak File",
+                                    style: TextStyle(color: Colors.white),
+                                  ))
                             ],
                           )
                         ],
