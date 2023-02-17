@@ -133,7 +133,7 @@ class _HomeState extends State<Home> {
       ),
       drawer: Drawer(child: MyDrawer()),
       body: Padding(
-        padding: EdgeInsets.all(20),
+        padding: EdgeInsets.all(10),
         child: Column(
           children: [
             Row(
@@ -200,7 +200,7 @@ class _HomeState extends State<Home> {
                           height: 5,
                         ),
                         Text(
-                          "Complete \n File",
+                          "Approved \n File",
                           textAlign: TextAlign.center,
                         )
                       ],
@@ -234,7 +234,7 @@ class _HomeState extends State<Home> {
                           height: 5,
                         ),
                         Text(
-                          "Pending \n File",
+                          "Process \n File",
                           textAlign: TextAlign.center,
                         )
                       ],

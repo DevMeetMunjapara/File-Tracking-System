@@ -13,13 +13,13 @@ class FileStatusIcon extends StatelessWidget {
     required this.fileStatus,
   });
   Widget iconFun(String status) {
-    if (status == "Reject") {
+    if (status == "Rejected") {
       return Icon(
         Icons.cancel,
         size: setSize == null ? size : setSize,
         color: Colors.red,
       );
-    } else if (status == "Process") {
+    } else if (status == "Pending") {
       return Icon(
         Icons.work_history,
         size: setSize != null ? setSize : size,

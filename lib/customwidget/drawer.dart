@@ -7,6 +7,7 @@ import 'package:fts/customwidget/fullbutton.dart';
 import 'package:fts/home.dart';
 import 'package:fts/login/phoneverification.dart';
 import 'package:fts/page/completeFile.dart';
+import 'package:fts/page/profile.dart';
 import 'package:fts/page/totalFile.dart';
 import 'package:fts/splash/splashServices.dart';
 
@@ -61,7 +62,7 @@ class _MyDrawerState extends State<MyDrawer> {
                 title: const Text('Profile'),
                 onTap: () {
                   Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => CompleteFile()));
+                      MaterialPageRoute(builder: (context) => Profile()));
                 }),
             ListTile(
               leading: const Icon(Icons.file_copy),

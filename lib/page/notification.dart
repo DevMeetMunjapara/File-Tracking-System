@@ -104,68 +104,83 @@ class _MyNotificationState extends State<MyNotification> {
                   itemBuilder: (context, index) {
                     int a = 15;
 
-                    return Container(
-                      padding: EdgeInsets.all(12),
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(7),
-                          border:
-                              Border.all(color: Color.fromARGB(255, 0, 0, 0))),
-                      child: Row(
-                        children: [
-                          CircleAvatar(
-                            backgroundColor: Color.fromARGB(255, 70, 68, 68),
-                            child: FileStatusIcon(
-                                setSize: 25.toDouble(),
-                                fileStatus: snapshot.data!.docs[index]
-                                    ["fileStatus"]),
-                          ),
-                          SizedBox(
-                            width: 20,
-                          ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
+                    return Column(
+                      children: [
+                        Container(
+                          padding: EdgeInsets.all(12),
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(7),
+                              border: Border.all(
+                                  color: Color.fromARGB(255, 0, 0, 0))),
+                          child: Row(
                             children: [
-                              Text(
-                                snapshot.data!.docs[index]["lastUpdateDate"],
-                                style: TextStyle(
-                                    fontSize: 16, fontWeight: FontWeight.bold),
-                              ),
-                              Text(
-                                "File ID :- " + snapshot.data!.docs[index].id,
-                                style: TextStyle(
-                                    fontSize: 16, fontWeight: FontWeight.w400),
-                              ),
-                              Text(
-                                "Update Time:- " +
-                                    snapshot.data!.docs[index]
-                                        ["lastUpdateTime"],
-                                style: TextStyle(
-                                    fontSize: 16, fontWeight: FontWeight.w400),
+                              CircleAvatar(
+                                backgroundColor:
+                                    Color.fromARGB(255, 70, 68, 68),
+                                child: FileStatusIcon(
+                                    setSize: 25.toDouble(),
+                                    fileStatus: snapshot.data!.docs[index]
+                                        ["fileStatus"]),
                               ),
                               SizedBox(
-                                height: 3,
+                                width: 20,
                               ),
-                              ElevatedButton(
-                                  style: ElevatedButton.styleFrom(
-                                      backgroundColor: PrimaryColor),
-                                  onPressed: () {
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) => FileStatus(
-                                                  trckingId: snapshot.data!
-                                                      .docs[index].reference.id
-                                                      .toString(),
-                                                )));
-                                  },
-                                  child: const Text(
-                                    "Trak File",
-                                    style: TextStyle(color: Colors.white),
-                                  ))
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    snapshot.data!.docs[index]
+                                        ["lastUpdateDate"],
+                                    style: TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  Text(
+                                    "File ID :- " +
+                                        snapshot.data!.docs[index]
+                                            ["TrackingId"],
+                                    style: TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w400),
+                                  ),
+                                  Text(
+                                    "Update Time:- " +
+                                        snapshot.data!.docs[index]
+                                            ["lastUpdateTime"],
+                                    style: TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w400),
+                                  ),
+                                  SizedBox(
+                                    height: 3,
+                                  ),
+                                  ElevatedButton(
+                                      style: ElevatedButton.styleFrom(
+                                          backgroundColor: PrimaryColor),
+                                      onPressed: () {
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    FileStatus(
+                                                      trckingId: snapshot
+                                                              .data!.docs[index]
+                                                          ["TrackingId"],
+                                                    )));
+                                      },
+                                      child: const Text(
+                                        "Track File",
+                                        style: TextStyle(color: Colors.white),
+                                      )),
+                                ],
+                              ),
                             ],
-                          )
-                        ],
-                      ),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 10,
+                        )
+                      ],
                     );
                   },
                 );
