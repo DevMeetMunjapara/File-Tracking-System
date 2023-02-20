@@ -5,6 +5,7 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:fts/customwidget/drawer.dart';
 import 'package:fts/customwidget/fileStatusIcon.dart';
+import 'package:fts/customwidget/infoStatus.dart';
 import 'package:fts/page/fileStatus.dart';
 import 'package:fts/splash/splashServices.dart';
 
@@ -12,7 +13,7 @@ class TotalFile extends StatelessWidget {
   var totalFile = 0;
   TotalFile({
     super.key,
-    required int allFileCount,
+    //required int allFileCount,
   });
 
   final db = FirebaseFirestore.instance
@@ -23,6 +24,7 @@ class TotalFile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print(loginMobileNumber);
     return Scaffold(
         appBar: AppBar(
           title: Text("All Files"),
@@ -33,77 +35,15 @@ class TotalFile extends StatelessWidget {
             child: Container(
               child: Column(
                 children: [
-                  Padding(
-                    padding: EdgeInsets.only(left: 10),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Row(
-                          children: [
-                            Text(
-                              "File Reject ",
-                              style: TextStyle(fontWeight: FontWeight.w500),
-                            ),
-                            Icon(
-                              Icons.cancel,
-                              color: Colors.red,
-                            ),
-                          ],
-                        ),
-                        SizedBox(
-                          width: 5,
-                        ),
-                        Text(
-                          "|",
-                          style: TextStyle(fontSize: 30),
-                        ),
-                        SizedBox(
-                          width: 5,
-                        ),
-                        Row(
-                          children: [
-                            Text(
-                              "In Procces ",
-                              style: TextStyle(fontWeight: FontWeight.w500),
-                            ),
-                            Icon(
-                              Icons.work_history,
-                              color: Color.fromARGB(255, 234, 187, 17),
-                            ),
-                          ],
-                        ),
-                        SizedBox(
-                          width: 5,
-                        ),
-                        Text(
-                          "|",
-                          style: TextStyle(fontSize: 30),
-                        ),
-                        SizedBox(
-                          width: 5,
-                        ),
-                        Row(
-                          children: [
-                            Text(
-                              "File Approve ",
-                              style: TextStyle(fontWeight: FontWeight.w500),
-                            ),
-                            Icon(
-                              Icons.verified,
-                              color: Color.fromARGB(255, 15, 161, 20),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                  SizedBox(
+                  InfoStatus(),
+                  const SizedBox(
                     height: 20,
                   ),
                   Expanded(
                     child: StreamBuilder(
                       stream: db,
                       builder: (context, snapshot) {
+                        print(loginMobileNumber);
                         if (snapshot.connectionState ==
                             ConnectionState.waiting) {
                           return const Center(
@@ -119,16 +59,10 @@ class TotalFile extends StatelessWidget {
                           );
                         }
 
-                        if (snapshot.hasData) {
-                          print("object");
-                          print(loginMobileNumber);
-                          print("object");
-                          print("object");
-                        }
-
                         return ListView.builder(
                           itemCount: snapshot.data!.docs.length,
                           itemBuilder: (context, index) {
+                            print(snapshot.data!.docs[index].id);
                             return Padding(
                               padding: EdgeInsets.all(5),
                               child: Card(
@@ -145,37 +79,39 @@ class TotalFile extends StatelessWidget {
                                               snapshot.data!.docs[index]
                                                   .reference.id
                                                   .toString(),
-                                              style: TextStyle(
+                                              style: const TextStyle(
                                                   color: Colors.black,
                                                   fontSize: 16,
                                                   fontWeight: FontWeight.w700),
                                             ),
-                                            SizedBox(
+                                            const SizedBox(
                                               width: 5,
                                             ),
                                             FileStatusIcon(
-                                                fileStatus: snapshot.data!
-                                                    .docs[index]["fileStatus"])
+                                              fileStatus: snapshot.data!
+                                                  .docs[index]["fileStatus"],
+                                              setSize: 30.toDouble(),
+                                            )
                                           ],
                                         ),
-                                        SizedBox(
+                                        const SizedBox(
                                           height: 5,
                                         ),
                                         Row(
                                           children: [
-                                            Text(
+                                            const Text(
                                               "File Name :- ",
                                               style: TextStyle(
                                                   fontWeight: FontWeight.w500),
                                             ),
-                                            SizedBox(
+                                            const SizedBox(
                                               width: 5,
                                             ),
                                             Text(
                                               snapshot
                                                   .data!.docs[index]["fileName"]
                                                   .toString(),
-                                              style: TextStyle(
+                                              style: const TextStyle(
                                                   fontSize: 14,
                                                   fontWeight: FontWeight.w400),
                                             ),
@@ -183,25 +119,25 @@ class TotalFile extends StatelessWidget {
                                         ),
                                         Row(
                                           children: [
-                                            Text(
+                                            const Text(
                                               "File Submit Date :- ",
                                               style: TextStyle(
                                                   fontWeight: FontWeight.w500),
                                             ),
-                                            SizedBox(
+                                            const SizedBox(
                                               width: 5,
                                             ),
                                             Text(
                                               snapshot.data!
                                                   .docs[index]["submitDate"]
                                                   .toString(),
-                                              style: TextStyle(
+                                              style: const TextStyle(
                                                   fontSize: 14,
                                                   fontWeight: FontWeight.w400),
                                             ),
                                           ],
                                         ),
-                                        SizedBox(
+                                        const SizedBox(
                                           height: 5,
                                         ),
                                         ElevatedButton(
@@ -221,7 +157,7 @@ class TotalFile extends StatelessWidget {
                                                                 .toString(),
                                                           )));
                                             },
-                                            child: Text(
+                                            child: const Text(
                                               "Trak File",
                                               style: TextStyle(
                                                   color: Colors.white),

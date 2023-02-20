@@ -124,206 +124,158 @@ class _HomeState extends State<Home> {
                       MaterialPageRoute(
                           builder: (context) => MyNotification()));
                 },
-                icon: Badge(
-                    smallSize: 15,
-                    label: Text("3"),
-                    child: Icon(
-                      Icons.notifications,
-                      size: 25,
-                    ))),
+                icon: const Icon(
+                  Icons.notifications,
+                  size: 25,
+                )),
           )
         ],
       ),
       drawer: Drawer(child: MyDrawer()),
-      bottomNavigationBar: Padding(
-        padding: EdgeInsets.fromLTRB(20, 0, 20, 40),
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(15),
-          child: BottomNavigationBar(
-              backgroundColor: PrimaryColor,
-              selectedLabelStyle: TextStyle(fontWeight: FontWeight.w500),
-              selectedItemColor: Colors.white,
-              currentIndex: myIndex,
-              unselectedItemColor: Color.fromARGB(255, 192, 191, 191),
-              onTap: (index) {
-                setState(() {
-                  myIndex = index;
-                });
-              },
-              items: const [
-                BottomNavigationBarItem(
-                    label: "Home",
-                    icon: Icon(
-                      Icons.home,
-                    )),
-                BottomNavigationBarItem(
-                    label: "Total File",
-                    icon: Icon(
-                      Icons.file_copy,
-                    )),
-                BottomNavigationBarItem(
-                    label: "Profile", icon: Icon(Icons.person))
-              ]),
-        ),
-      ),
       body: Padding(
-        padding: EdgeInsets.all(20),
+        padding: EdgeInsets.all(10),
         child: Column(
           children: [
-            InkWell(
-              onTap: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => TotalFile(
-                              allFileCount: totalFile,
-                            )));
-              },
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  InkWell(
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => TotalFile(
-                                    allFileCount: totalFile,
-                                  )));
-                    },
-                    child: Container(
-                      decoration: BoxDecoration(
-                          color: Color.fromARGB(255, 207, 166, 255),
-                          borderRadius: BorderRadius.circular(7),
-                          border: Border.all(
-                              color: Color.fromARGB(255, 110, 12, 223))),
-                      padding: EdgeInsets.all(5),
-                      height: 80,
-                      width: 75,
-                      child: Column(
-                        children: const [
-                          Image(
-                            image: AssetImage("img/home/allFile.png"),
-                            height: 25,
-                          ),
-                          SizedBox(
-                            height: 5,
-                          ),
-                          Text("Total \n File")
-                        ],
-                      ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                InkWell(
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => TotalFile(
+                                //allFileCount: totalFile,
+                                )));
+                  },
+                  child: Container(
+                    decoration: BoxDecoration(
+                        color: Color.fromARGB(255, 207, 166, 255),
+                        borderRadius: BorderRadius.circular(7),
+                        border: Border.all(
+                            color: Color.fromARGB(255, 110, 12, 223))),
+                    padding: EdgeInsets.all(5),
+                    height: 80,
+                    width: 75,
+                    child: Column(
+                      children: const [
+                        Image(
+                          image: AssetImage("img/home/allFile.png"),
+                          height: 25,
+                        ),
+                        SizedBox(
+                          height: 5,
+                        ),
+                        Text("Total \n File")
+                      ],
                     ),
                   ),
-                  SizedBox(
-                    width: 10,
-                  ),
-                  InkWell(
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => CompleteFile()));
-                    },
-                    child: Container(
-                      decoration: BoxDecoration(
-                          color: Color.fromARGB(255, 134, 249, 182),
-                          borderRadius: BorderRadius.circular(7),
-                          border: Border.all(
-                              color: Color.fromARGB(255, 2, 99, 54))),
-                      padding: EdgeInsets.all(5),
-                      height: 80,
-                      width: 75,
-                      child: Column(
-                        children: const [
-                          Image(
-                            image: AssetImage("img/home/complete.png"),
-                            height: 25,
-                          ),
-                          SizedBox(
-                            height: 5,
-                          ),
-                          Text(
-                            "Complete \n File",
-                            textAlign: TextAlign.center,
-                          )
-                        ],
-                      ),
+                ),
+                SizedBox(
+                  width: 10,
+                ),
+                InkWell(
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => CompleteFile()));
+                  },
+                  child: Container(
+                    decoration: BoxDecoration(
+                        color: Color.fromARGB(255, 134, 249, 182),
+                        borderRadius: BorderRadius.circular(7),
+                        border:
+                            Border.all(color: Color.fromARGB(255, 2, 99, 54))),
+                    padding: EdgeInsets.all(5),
+                    height: 80,
+                    width: 75,
+                    child: Column(
+                      children: const [
+                        Image(
+                          image: AssetImage("img/home/complete.png"),
+                          height: 25,
+                        ),
+                        SizedBox(
+                          height: 5,
+                        ),
+                        Text(
+                          "Approved \n File",
+                          textAlign: TextAlign.center,
+                        )
+                      ],
                     ),
                   ),
-                  const SizedBox(
-                    width: 10,
-                  ),
-                  InkWell(
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => PendingFile()));
-                    },
-                    child: Container(
-                      decoration: BoxDecoration(
-                          color: Color.fromARGB(255, 245, 255, 166),
-                          borderRadius: BorderRadius.circular(7),
-                          border: Border.all(
-                              color: Color.fromARGB(255, 110, 96, 4))),
-                      padding: EdgeInsets.all(5),
-                      height: 80,
-                      width: 75,
-                      child: Column(
-                        children: const [
-                          Image(
-                            image: AssetImage("img/home/pending.png"),
-                            height: 25,
-                          ),
-                          SizedBox(
-                            height: 5,
-                          ),
-                          Text(
-                            "Pending \n File",
-                            textAlign: TextAlign.center,
-                          )
-                        ],
-                      ),
+                ),
+                const SizedBox(
+                  width: 10,
+                ),
+                InkWell(
+                  onTap: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => PendingFile()));
+                  },
+                  child: Container(
+                    decoration: BoxDecoration(
+                        color: Color.fromARGB(255, 245, 255, 166),
+                        borderRadius: BorderRadius.circular(7),
+                        border:
+                            Border.all(color: Color.fromARGB(255, 110, 96, 4))),
+                    padding: EdgeInsets.all(5),
+                    height: 80,
+                    width: 75,
+                    child: Column(
+                      children: const [
+                        Image(
+                          image: AssetImage("img/home/pending.png"),
+                          height: 25,
+                        ),
+                        SizedBox(
+                          height: 5,
+                        ),
+                        Text(
+                          "Process \n File",
+                          textAlign: TextAlign.center,
+                        )
+                      ],
                     ),
                   ),
-                  const SizedBox(
-                    width: 10,
-                  ),
-                  InkWell(
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => RejectFile()));
-                    },
-                    child: Container(
-                      decoration: BoxDecoration(
-                          color: Color.fromARGB(255, 207, 166, 255),
-                          borderRadius: BorderRadius.circular(7),
-                          border: Border.all(
-                              color: Color.fromARGB(255, 110, 12, 223))),
-                      padding: EdgeInsets.all(5),
-                      height: 80,
-                      width: 75,
-                      child: Column(
-                        children: const [
-                          Image(
-                            image: AssetImage("img/home/reject.png"),
-                            height: 25,
-                          ),
-                          SizedBox(
-                            height: 5,
-                          ),
-                          Text(
-                            "Reject \n File",
-                            textAlign: TextAlign.center,
-                          )
-                        ],
-                      ),
+                ),
+                const SizedBox(
+                  width: 10,
+                ),
+                InkWell(
+                  onTap: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => RejectFile()));
+                  },
+                  child: Container(
+                    decoration: BoxDecoration(
+                        color: Color.fromARGB(255, 207, 166, 255),
+                        borderRadius: BorderRadius.circular(7),
+                        border: Border.all(
+                            color: Color.fromARGB(255, 110, 12, 223))),
+                    padding: EdgeInsets.all(5),
+                    height: 80,
+                    width: 75,
+                    child: Column(
+                      children: const [
+                        Image(
+                          image: AssetImage("img/home/reject.png"),
+                          height: 25,
+                        ),
+                        SizedBox(
+                          height: 5,
+                        ),
+                        Text(
+                          "Reject \n File",
+                          textAlign: TextAlign.center,
+                        )
+                      ],
                     ),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
             const SizedBox(
               height: 50,
